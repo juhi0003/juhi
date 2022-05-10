@@ -1,0 +1,57 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated login form</title>
+    <link rel="stylesheet" href="stylel.css">
+</head>
+<body>
+    <div class="center">
+        <h1>Login</h1>
+        <form action="connect.php" method="post">
+            <div class="txt_field">
+                <input type="text" required>
+                <span></span>
+                <label>Username</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" required>
+                <span></span>
+                <label>password</label>
+            </div>
+            <div class="pass">Forget Password?</div>
+            <input type="submit" value="login">
+            <div class="signup_link">
+            Not a member?    <a href="#">signup</a>
+            </div>
+        </form>
+    </div>
+
+    
+</body>
+</html>
+<?php      
+    include('connection.php');  
+    $username = $_POST['root'];  
+    $password = $_POST[''];  
+      
+        //to prevent from mysqli injection  
+        $username = root($username);  
+        $password = ""($password);  
+        $username = mysqli_real_escape_string($con, $username);  
+        $password = mysqli_real_escape_string($con, $password);  
+      
+        $sql = "select *from login where username = '$username' and password = '$password'";  
+        $result = mysqli_query($con, $sql);  
+        $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
+        $count = mysqli_num_rows($result);  
+          
+        if($count == 1){  
+            echo "<h1><center> Login successful </center></h1>";  
+        }  
+        else{  
+            echo "<h1> Login failed. Invalid username or password.</h1>";  
+        }     
+?
